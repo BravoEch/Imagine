@@ -18,7 +18,6 @@ def grayPixel(pixel):
     green_intensity = int(pixel[1])
     blue_intensity = int(pixel[2])
     ave_intensity = (red_intensity + green_intensity + blue_intensity)//3
-
     return ((ave_intensity, ave_intensity, ave_intensity))
 
 # channel: pixel -> channel -> pixel
@@ -42,19 +41,33 @@ def inverse(pixel):
 # individual pixel intensity, never returning a result
 # greater than 255 or less than 0.
 #
-def intensify(pixel,quantity):
-    return (pixel[0]+quantity, pixel[1]+quantity, pixel[2]+quantity)
+#def intensify(pixel,quantity):
+#return (pixel[0]+quantity, pixel[1]+quantity,pixel[2]+quantity)
 
 def lightPixels(pixel):
-    if (pixel[0] <= 245, pixel[1] <= 245, pixel[2] <= 245):
-        return intensify(pixel, (10))
+    if (pixel[0] <= 245 and pixel[1] <= 245 and pixel[2] <= 245):
+        return (pixel[0]+10, pixel[1]+10, pixel[2]+10)
+    elif (pixel[0] <= 245):
+        return (pixel[0]+10, pixel[1], pixel[2])
+    elif (pixel[1] <= 245):
+        return (pixel[0], pixel[1]+10, pixel[2])
+    elif (pixel[2] <= 245):
+        return (pixel[0], pixel[1], pixel[2]+10)
     else:
+    #(pixel[0] > 245, pixel[1] > 245, pixel[2] > 245):
         return (pixel[0], pixel[1], pixel[2])
 
 def darkPixels(pixel):
-    if (pixel[0] >= 10, pixel[1] >= 10, pixel[2] >= 10):
-        return intensify(pixel, -10)
+    if (pixel[0] >= 10 and pixel[1] >= 10 and pixel[2] >= 10):
+        return (pixel[0]-10, pixel[1]-10, pixel[2]-10)
+    elif (pixel[0] >= 10):
+        return (pixel[0]-10, pixel[1], pixel[2]) 
+    elif (pixel[1] >= 10):
+        return (pixel[0], pixel[1]-10,pixel[2]) 
+    elif (pixel[2] >= 10):
+        return (pixel[0], pixel[1], pixel[2]-10)
     else:
+    #(pixel[0] < 10, pixel[1] < 10, pixel[2] < 10):
         return (pixel[0], pixel[1], pixel[2])
 
 
